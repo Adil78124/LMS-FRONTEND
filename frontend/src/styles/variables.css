@@ -1,0 +1,138 @@
+/* CSS переменные для темы */
+/* Цветовая схема: сдержанный бежевый/кремовый */
+
+:root,
+[data-theme="light"] {
+  /* Основные цвета */
+  --color-primary: #C9A88E;
+  --color-primary-hover: #B8967A;
+  --color-primary-active: #A68368;
+  --color-secondary: #E8DDD4;
+  --color-accent: #D4B5A0;
+
+  /* Фоны */
+  --color-background: #FDF9F5;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #FEFBF8;
+  --color-overlay: rgba(201, 168, 142, 0.1);
+
+  /* Текст */
+  --color-text: #2C2418;
+  --color-text-secondary: #5C4A3A;
+  --color-text-muted: #8B7565;
+  --color-text-disabled: #B5A899;
+
+  /* Границы и разделители */
+  --color-border: #E5DBD1;
+  --color-border-light: #F0E8E0;
+  --color-divider: #EDE4DA;
+
+  /* Статусы */
+  --color-success: #9B8B6F;
+  --color-warning: #C49B7A;
+  --color-error: #C9876A;
+  --color-info: #B8A189;
+
+  /* Тени */
+  --shadow-sm: 0 2px 8px rgba(44, 36, 24, 0.08);
+  --shadow-md: 0 4px 12px rgba(44, 36, 24, 0.08);
+  --shadow-lg: 0 8px 24px rgba(44, 36, 24, 0.12);
+  --shadow-hover: 0 4px 16px rgba(44, 36, 24, 0.12);
+  --shadow-active: 0 2px 8px rgba(44, 36, 24, 0.16);
+
+  /* Градиенты */
+  --gradient-primary: linear-gradient(135deg, #C9A88E 0%, #D4B5A0 100%);
+  --gradient-background: linear-gradient(180deg, #FDF9F5 0%, #FAF5EF 100%);
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+  --spacing-xxxl: 64px;
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+[data-theme="dark"] {
+  /* Основные цвета (темнее для темной темы) */
+  --color-primary: #B8967A;
+  --color-primary-hover: #C9A88E;
+  --color-primary-active: #A68368;
+  --color-secondary: #3A332C;
+  --color-accent: #5C4A3A;
+
+  /* Фоны */
+  --color-background: #1F1B17;
+  --color-surface: #2A2520;
+  --color-surface-elevated: #342F29;
+  --color-overlay: rgba(184, 150, 122, 0.15);
+
+  /* Текст */
+  --color-text: #E8DDD4;
+  --color-text-secondary: #D4B5A0;
+  --color-text-muted: #B5A899;
+  --color-text-disabled: #8B7565;
+
+  /* Границы и разделители */
+  --color-border: #3A332C;
+  --color-border-light: #2A2520;
+  --color-divider: #342F29;
+
+  /* Статусы (остаются такими же) */
+  --color-success: #9B8B6F;
+  --color-warning: #C49B7A;
+  --color-error: #C9876A;
+  --color-info: #B8A189;
+
+  /* Тени */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-active: 0 2px 8px rgba(0, 0, 0, 0.5);
+
+  /* Градиенты */
+  --gradient-primary: linear-gradient(135deg, #B8967A 0%, #C9A88E 100%);
+  --gradient-background: linear-gradient(180deg, #1F1B17 0%, #2A2520 100%);
+}
+
+/* Breakpoints */
+@media (max-width: 480px) {
+  :root {
+    --spacing-xs: 4px;
+    --spacing-sm: 6px;
+    --spacing-md: 12px;
+    --spacing-lg: 18px;
+    --spacing-xl: 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --spacing-xxl: 48px;
+    --spacing-xxxl: 64px;
+  }
+}
