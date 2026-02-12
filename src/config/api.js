@@ -1,5 +1,6 @@
-// API base URL. В dev с proxy — пустая строка (запросы идут на тот же origin, proxy перенаправляет на бэкенд).
-// Иначе бэкенд на порту 3001.
+// API base URL.
+// Dev: '' = запросы через proxy на backend:3001 (при backend «pnpm run start:dev» и proxy в package.json).
+// Dev с Netlify: задай REACT_APP_API_URL=http://localhost:8888 (backend «pnpm run netlify:dev»).
 const defaultUrl =
   typeof process !== 'undefined' && process.env.NODE_ENV === 'development'
     ? ''
