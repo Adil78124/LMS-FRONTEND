@@ -73,4 +73,18 @@ export const authService = {
       body: JSON.stringify(payload),
     });
   },
+
+  async sendCode(email) {
+    return request(`${authApi}/send-code`, {
+      method: 'POST',
+      body: JSON.stringify({ email }),
+    });
+  },
+
+  async loginWithCode(email, code) {
+    return request(`${authApi}/login-with-code`, {
+      method: 'POST',
+      body: JSON.stringify({ email, code }),
+    });
+  },
 };

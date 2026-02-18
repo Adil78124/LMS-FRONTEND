@@ -14,10 +14,12 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     clearError();
+    if (!email || !password) return;
     setLoading(true);
     try {
       const data = await login(email, password);
@@ -44,10 +46,10 @@ const Login = () => {
         <div className="auth-card">
           <h1 className="auth__title">{t('auth.login')}</h1>
           <p className="auth__subtitle">
-            {t('auth.hasAccount')} {t('auth.login')}
+            Введите email и пароль для входа
           </p>
 
-          <form className="auth__form" onSubmit={handleSubmit}>
+          <form className="auth__form" onSubmit={handleLogin}>
             {error && (
               <div className="auth__error" role="alert">
                 {error}
@@ -67,25 +69,35 @@ const Login = () => {
                 placeholder="example@mail.com"
                 required
                 autoComplete="email"
+                disabled={loading}
               />
             </div>
 
             <div className="auth__field">
               <label htmlFor="password" className="auth__label">
-                {t('auth.password')}
+                Пароль
               </label>
-              <input
-                id="password"
-                type="password"
-                className="auth__input"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                required
-                minLength={8}
-                autoComplete="current-password"
-              />
-              <span className="auth__hint">{t('auth.passwordMinLength')}</span>
+              <div className="auth__password-wrapper">
+                <input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  className="auth__input"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Введите пароль"
+                  required
+                  autoComplete="current-password"
+                  disabled={loading}
+                />
+                <button
+                  type="button"
+                  className="auth__password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex={-1}
+                >
+                  {showPassword ? '👁️' : '👁️‍🗨️'}
+                </button>
+              </div>
             </div>
 
             <Button
@@ -94,9 +106,9 @@ const Login = () => {
               size="lg"
               fullWidth
               loading={loading}
-              disabled={loading}
+              disabled={loading || !email || !password}
             >
-              {t('auth.submitLogin')}
+              Войти
             </Button>
           </form>
 

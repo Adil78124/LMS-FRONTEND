@@ -1,24 +1,30 @@
 .favorites {
   min-height: calc(100vh - 70px);
-  padding: var(--spacing-xl) 0;
+  padding: 0 0 var(--spacing-xxl);
 }
 
 .favorites__header {
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: var(--spacing-xxl);
   text-align: center;
+  padding: var(--spacing-xxl) 0;
 }
 
 .favorites__title {
   font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--color-text);
+  font-weight: 800;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin: 0 0 var(--spacing-sm) 0;
+  letter-spacing: -0.02em;
 }
 
 .favorites__subtitle {
   font-size: 1.125rem;
   color: var(--color-text-secondary);
   margin: 0;
+  line-height: 1.5;
 }
 
 .favorites__loading {

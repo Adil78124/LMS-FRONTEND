@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="footer__container container">
         <div className="footer__content">
           <div className="footer__section">
-            <h3 className="footer__title">EduPlatform</h3>
+            <h3 className="footer__title">LMS</h3>
             <p className="footer__description">
               {t('footer.description')}
             </p>
@@ -68,7 +68,7 @@ const Footer = () => {
 
         <div className="footer__bottom">
           <p className="footer__copyright">
-            © {new Date().getFullYear()} EduPlatform. {t('footer.copyright')}.
+            © {new Date().getFullYear()} LMS. {t('footer.copyright')}.
           </p>
         </div>
       </div>

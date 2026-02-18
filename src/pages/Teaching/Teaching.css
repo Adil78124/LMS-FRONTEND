@@ -1,6 +1,6 @@
 .teaching {
   min-height: calc(100vh - 70px);
-  padding: var(--spacing-xl) 0;
+  padding: 0 0 var(--spacing-xxl);
 }
 
 .teaching__loading {
@@ -31,15 +31,20 @@
 
 .teaching__title {
   font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--color-text);
+  font-weight: 800;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin: 0 0 var(--spacing-sm) 0;
+  letter-spacing: -0.02em;
 }
 
 .teaching__subtitle {
   font-size: 1.125rem;
   color: var(--color-text-secondary);
   margin: 0 0 var(--spacing-lg) 0;
+  line-height: 1.5;
 }
 
 .teaching__stats {
@@ -50,14 +55,27 @@
 }
 
 .teaching__stat-card {
-  padding: var(--spacing-lg);
+  padding: var(--spacing-xl);
   text-align: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+}
+
+.teaching__stat-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .teaching__stat-value {
   font-size: 2rem;
-  font-weight: 700;
-  color: var(--color-primary);
+  font-weight: 800;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: var(--spacing-xs);
 }
 

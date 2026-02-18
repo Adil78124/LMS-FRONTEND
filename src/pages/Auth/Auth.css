@@ -4,10 +4,19 @@
   align-items: center;
   justify-content: center;
   padding: var(--spacing-xl);
+  position: relative;
 }
 
 .auth-page--register {
   background: var(--gradient-hero);
+}
+
+.auth-page--register::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(30, 64, 175, 0.25) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 [data-theme="dark"] .auth-page--register {
@@ -73,19 +82,38 @@
 }
 
 .auth-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
   padding: var(--spacing-xxl);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+}
+
+.auth-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: var(--gradient-border);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.6;
 }
 
 .auth__title {
   font-size: 1.75rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--color-text);
   margin: 0 0 var(--spacing-sm) 0;
   text-align: center;
+  letter-spacing: -0.02em;
 }
 
 .auth__subtitle {
@@ -137,11 +165,44 @@
 .auth__input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-overlay);
+  box-shadow: 0 0 0 3px rgba(232, 93, 4, 0.2);
 }
 
 .auth__input::placeholder {
   color: var(--color-text-muted);
+}
+
+.auth__password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.auth__password-wrapper .auth__input {
+  padding-right: 48px;
+}
+
+.auth__password-toggle {
+  position: absolute;
+  right: var(--spacing-sm);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  font-size: 1.25rem;
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+}
+
+.auth__password-toggle:hover {
+  color: var(--color-text);
+  background: var(--color-overlay);
 }
 
 .auth__select {

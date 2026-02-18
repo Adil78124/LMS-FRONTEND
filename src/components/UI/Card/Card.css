@@ -4,17 +4,22 @@
   border-radius: var(--radius-lg);
   padding: var(--spacing-md);
   transition: all var(--transition-normal);
+  box-shadow: var(--shadow-sm);
 }
 
 .card--elevated {
-  box-shadow: var(--shadow-md);
-  border: none;
+  box-shadow: var(--shadow-card);
+  border-color: rgba(232, 93, 4, 0.1);
+}
+
+[data-theme="dark"] .card--elevated {
+  border-color: var(--glass-border);
 }
 
 .card--hoverable:hover {
   box-shadow: var(--shadow-hover);
+  border-color: rgba(232, 93, 4, 0.25);
   transform: translateY(-2px);
-  border-color: var(--color-primary);
 }
 
 .card--clickable {

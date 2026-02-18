@@ -37,6 +37,7 @@ const CourseLessons = () => {
   const [modulesData, setModulesData] = useState([]);
   const [loadingModules, setLoadingModules] = useState(false);
   const [underMaterials, setUnderMaterials] = useState({});
+  const [testQuestionsByUm, setTestQuestionsByUm] = useState({});
 
   const loadCourse = useCallback(async () => {
     if (!courseId) return [];
@@ -96,9 +97,24 @@ const CourseLessons = () => {
       );
       setModulesData(withUnder);
       setUnderMaterials(materials);
+      const testData = {};
+      for (const { underModules } of withUnder) {
+        for (const um of underModules) {
+          if (um.type === 'test') {
+            try {
+              const res = await contentService.getTestQuestions(um.id);
+              testData[um.id] = res.questions ?? [];
+            } catch {
+              testData[um.id] = [];
+            }
+          }
+        }
+      }
+      setTestQuestionsByUm(testData);
     } catch {
       setModulesData([]);
       setUnderMaterials({});
+      setTestQuestionsByUm({});
     } finally {
       setLoadingModules(false);
     }
@@ -293,6 +309,95 @@ const CourseLessons = () => {
     }
   };
 
+  const addTestQuestion = async (underModuleId) => {
+    try {
+      const created = await contentService.createTestQuestion(underModuleId, { text: 'Новый вопрос', order: (testQuestionsByUm[underModuleId]?.length ?? 0) });
+      setTestQuestionsByUm((prev) => ({
+        ...prev,
+        [underModuleId]: [...(prev[underModuleId] ?? []), { ...created, answers: [] }],
+      }));
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  const updateTestQuestion = async (underModuleId, questionId, patch) => {
+    try {
+      await contentService.updateTestQuestion(questionId, patch);
+      setTestQuestionsByUm((prev) => {
+        const list = prev[underModuleId] ?? [];
+        return {
+          ...prev,
+          [underModuleId]: list.map((q) => (q.id === questionId ? { ...q, ...patch } : q)),
+        };
+      });
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  const deleteTestQuestion = async (underModuleId, questionId) => {
+    try {
+      await contentService.deleteTestQuestion(questionId);
+      setTestQuestionsByUm((prev) => ({
+        ...prev,
+        [underModuleId]: (prev[underModuleId] ?? []).filter((q) => q.id !== questionId),
+      }));
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  const addTestAnswer = async (underModuleId, questionId) => {
+    try {
+      const created = await contentService.createTestAnswer(questionId, { text: 'Вариант ответа', isCorrect: false });
+      setTestQuestionsByUm((prev) => {
+        const list = prev[underModuleId] ?? [];
+        return {
+          ...prev,
+          [underModuleId]: list.map((q) =>
+            q.id === questionId ? { ...q, answers: [...(q.answers ?? []), { ...created, isCorrect: false }] } : q
+          ),
+        };
+      });
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  const updateTestAnswer = async (underModuleId, questionId, answerId, patch) => {
+    try {
+      await contentService.updateTestAnswer(answerId, patch);
+      setTestQuestionsByUm((prev) => {
+        const list = prev[underModuleId] ?? [];
+        return {
+          ...prev,
+          [underModuleId]: list.map((q) =>
+            q.id === questionId
+              ? { ...q, answers: (q.answers ?? []).map((a) => (a.id === answerId ? { ...a, ...patch } : a)) }
+              : q
+          ),
+        };
+      });
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  const deleteTestAnswer = async (underModuleId, questionId, answerId) => {
+    try {
+      await contentService.deleteTestAnswer(answerId);
+      setTestQuestionsByUm((prev) => ({
+        ...prev,
+        [underModuleId]: (prev[underModuleId] ?? []).map((q) =>
+          q.id === questionId ? { ...q, answers: (q.answers ?? []).filter((a) => a.id !== answerId) } : q
+        ),
+      }));
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
   const handleDrop = async (e, dropIndex) => {
     e.preventDefault();
     const fromIndex = draggedIndex;
@@ -475,7 +580,7 @@ const CourseLessons = () => {
                   <div className="course-lessons__content-section">
                     <h3 className="course-lessons__content-title">{t('teaching.lessonContent')}</h3>
                     <p className="course-lessons__content-hint">
-                      Добавьте модули и задания на каждый день. Для каждого задания выберите тип (Введение, Теория, Видео, Практика, Тест) и макс. баллы. Урок засчитывается при ≥70% баллов.
+                      Добавьте модули и задания. Для каждого задания выберите тип (Введение, Теория, Видео, Практика, Тест) — название в содержании урока обновится. Введите текст материала и нажмите «Сохранить», иначе он не попадёт в урок. Урок засчитывается при ≥70% баллов.
                     </p>
                     {loadingModules ? (
                       <Loader />
@@ -522,11 +627,15 @@ const CourseLessons = () => {
                                   <select
                                     className="course-lessons__input course-lessons__select course-lessons__under-select"
                                     value={um.type || 'theory'}
-                                    onChange={(e) =>
+                                    onChange={(e) => {
+                                      const newType = e.target.value;
+                                      const opt = ASSIGNMENT_TYPES.find((o) => o.value === newType);
+                                      const newTitle = opt ? t(`teaching.${opt.key}`) : um.title;
                                       handleUpdateUnderModule(um.id, {
-                                        type: e.target.value,
-                                      })
-                                    }
+                                        type: newType,
+                                        title: newTitle,
+                                      });
+                                    }}
                                   >
                                     {ASSIGNMENT_TYPES.map((opt) => (
                                       <option key={opt.value} value={opt.value}>
@@ -600,18 +709,118 @@ const CourseLessons = () => {
                                           </>
                                         );
                                       }
-                                      const placeholder =
-                                        um.type === 'test'
-                                          ? 'Вопрос: ...\nОтвет: ...'
-                                          : 'Введите текст материала';
+                                      if (um.type === 'test') {
+                                        const questions = testQuestionsByUm[um.id] ?? [];
+                                        return (
+                                          <div className="course-lessons__test-editor">
+                                            <div className="course-lessons__test-head">
+                                              <span className="course-lessons__label">Вопросы теста</span>
+                                              <Button
+                                                type="button"
+                                                size="sm"
+                                                variant="primary"
+                                                onClick={() => addTestQuestion(um.id)}
+                                                disabled={submitting}
+                                              >
+                                                + Добавить вопрос
+                                              </Button>
+                                            </div>
+                                            {questions.length === 0 ? (
+                                              <p className="course-lessons__test-empty">
+                                                Нет вопросов. Нажмите «Добавить вопрос» и укажите варианты ответов; отметьте один правильный для каждого вопроса.
+                                              </p>
+                                            ) : (
+                                              <ul className="course-lessons__test-list">
+                                                {questions.map((q, qIdx) => (
+                                                  <li key={q.id} className="course-lessons__test-question">
+                                                    <div className="course-lessons__test-q-row">
+                                                      <input
+                                                        type="text"
+                                                        className="course-lessons__input course-lessons__test-q-input"
+                                                        placeholder="Текст вопроса"
+                                                        value={q.text || ''}
+                                                        onChange={(e) =>
+                                                          updateTestQuestion(um.id, q.id, {
+                                                            text: e.target.value,
+                                                          })
+                                                        }
+                                                      />
+                                                      <button
+                                                        type="button"
+                                                        className="course-lessons__list-delete"
+                                                        onClick={() => deleteTestQuestion(um.id, q.id)}
+                                                        title={t('common.delete')}
+                                                      >
+                                                        ✕
+                                                      </button>
+                                                    </div>
+                                                    <div className="course-lessons__test-answers">
+                                                      {(q.answers ?? []).map((a) => (
+                                                        <div key={a.id} className="course-lessons__test-answer-row">
+                                                          <label className="course-lessons__test-answer-check">
+                                                            <input
+                                                              type="radio"
+                                                              name={`correct-${q.id}`}
+                                                              checked={!!a.isCorrect}
+                                                              onChange={() => {
+                                                                updateTestAnswer(um.id, q.id, a.id, {
+                                                                  isCorrect: true,
+                                                                });
+                                                                (q.answers ?? []).filter((aa) => aa.id !== a.id).forEach((aa) => {
+                                                                  updateTestAnswer(um.id, q.id, aa.id, {
+                                                                    isCorrect: false,
+                                                                  });
+                                                                });
+                                                              }}
+                                                            />
+                                                            <span>Правильный</span>
+                                                          </label>
+                                                          <input
+                                                            type="text"
+                                                            className="course-lessons__input course-lessons__test-a-input"
+                                                            placeholder="Вариант ответа"
+                                                            value={a.text || ''}
+                                                            onChange={(e) =>
+                                                              updateTestAnswer(um.id, q.id, a.id, {
+                                                                text: e.target.value,
+                                                              })
+                                                            }
+                                                          />
+                                                          <button
+                                                            type="button"
+                                                            className="course-lessons__list-delete"
+                                                            onClick={() => deleteTestAnswer(um.id, q.id, a.id)}
+                                                            title={t('common.delete')}
+                                                          >
+                                                            ✕
+                                                          </button>
+                                                        </div>
+                                                      ))}
+                                                      <Button
+                                                        type="button"
+                                                        size="sm"
+                                                        variant="outline"
+                                                        onClick={() => addTestAnswer(um.id, q.id)}
+                                                        disabled={submitting}
+                                                      >
+                                                        + Вариант ответа
+                                                      </Button>
+                                                    </div>
+                                                  </li>
+                                                ))}
+                                              </ul>
+                                            )}
+                                          </div>
+                                        );
+                                      }
                                       return (
                                         <>
                                           <label className="course-lessons__label">
-                                            {um.type === 'test' ? 'Тест (вопрос / ответ)' : 'Материал'}
+                                            Материал
                                             <textarea
                                               className="course-lessons__input course-lessons__textarea"
                                               rows={3}
-                                              placeholder={placeholder}
+                                              placeholder="Введите текст материала"
                                               value={mat.text}
                                               onChange={(e) =>
                                                 handleMaterialChange(um.id, { text: e.target.value })

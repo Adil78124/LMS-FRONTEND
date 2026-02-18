@@ -61,6 +61,28 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const loginWithCode = async (email, code) => {
+    setError(null);
+    try {
+      const data = await authService.loginWithCode(email, code);
+      setUser(data.user);
+      return data;
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
+  const sendCode = async (email) => {
+    setError(null);
+    try {
+      return await authService.sendCode(email);
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
   const register = async (userData) => {
     setError(null);
     try {
@@ -88,6 +110,8 @@ export const AuthProvider = ({ children }) => {
     setUser,
     loading,
     error,
+    loginWithCode,
+    sendCode,
     isAuthenticated: !!user,
     login,
     register,

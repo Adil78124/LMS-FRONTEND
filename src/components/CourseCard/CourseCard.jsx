@@ -93,6 +93,9 @@ const CourseCard = ({ course, enrollmentProgress, isEnrolled, isFavorite = false
       onClick={handleCardClick}
     >
       <div className="course-card__image">
+        {(course.currentPrice ?? course.price ?? 0) === 0 && (
+          <span className="course-card__badge course-card__badge--free">{t('catalog.free')}</span>
+        )}
         {onToggleFavorite && (
           <button
             type="button"

@@ -93,6 +93,47 @@ export const contentService = {
     });
   },
 
+  // Тест: вопросы и ответы
+  getTestQuestions(underModuleId) {
+    return request(`${base}/under-modules/${underModuleId}/test-questions`);
+  },
+  createTestQuestion(underModuleId, body) {
+    return request(`${base}/under-modules/${underModuleId}/test-questions`, {
+      method: 'POST',
+      body: JSON.stringify(body),
+    });
+  },
+  updateTestQuestion(id, body) {
+    return request(`${base}/test-questions/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(body),
+    });
+  },
+  deleteTestQuestion(id) {
+    return request(`${base}/test-questions/${id}`, { method: 'DELETE' });
+  },
+  createTestAnswer(questionId, body) {
+    return request(`${base}/test-questions/${questionId}/answers`, {
+      method: 'POST',
+      body: JSON.stringify(body),
+    });
+  },
+  updateTestAnswer(id, body) {
+    return request(`${base}/test-answers/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(body),
+    });
+  },
+  deleteTestAnswer(id) {
+    return request(`${base}/test-answers/${id}`, { method: 'DELETE' });
+  },
+  submitTest(underModuleId, body) {
+    return request(`${base}/under-modules/${underModuleId}/submit-test`, {
+      method: 'POST',
+      body: JSON.stringify(body),
+    });
+  },
+
   // Загрузка видео через проводник
   async uploadVideo(file) {
     const form = new FormData();

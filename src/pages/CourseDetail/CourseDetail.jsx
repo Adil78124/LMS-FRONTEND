@@ -210,10 +210,12 @@ const CourseDetail = () => {
   };
 
   const price = course.currentPrice ?? course.price ?? 0;
+  const totalLessons = course.lessons?.length ?? 0;
+  const totalMinutes = course.lessons?.reduce((acc, l) => acc + (l.duration ?? 0), 0) ?? course.duration ?? 0;
 
   return (
     <div className="course-detail">
-      <div className="container">
+      <div className="course-detail__back-wrap container">
         <Button
           variant="ghost"
           onClick={() => (window.history.length > 1 ? navigate(-1) : navigate('/catalog'))}
@@ -221,73 +223,75 @@ const CourseDetail = () => {
         >
           ← {t('common.back')}
         </Button>
+      </div>
 
+      <div className="course-detail__hero">
+        <div className="course-detail__hero-bg">
+          <img
+            src={getCourseImage()}
+            alt=""
+            loading="lazy"
+onError={(e) => {
+                  e.target.style.display = 'none';
+                  const next = e.target.nextElementSibling;
+                  if (next) next.style.display = 'flex';
+                }}
+          />
+          <div className="course-detail__hero-placeholder" style={{ display: 'none' }}>📚</div>
+          <div className="course-detail__hero-overlay" aria-hidden="true" />
+        </div>
+        <div className="container course-detail__hero-inner">
+          <div className="course-detail__hero-content">
+            <h1 className="course-detail__title">{course.title}</h1>
+            <p className="course-detail__hero-desc">
+              {course.description || course.fullDescription?.slice(0, 200) || ''}
+              {(course.fullDescription?.length ?? 0) > 200 ? '…' : ''}
+            </p>
+            <div className="course-detail__hero-meta">
+              <span className="course-detail__hero-meta-item">
+                <span className="course-detail__hero-meta-icon">📚</span>
+                {totalLessons} {t('course.lessons')}
+              </span>
+              <span className="course-detail__hero-meta-item">
+                <span className="course-detail__hero-meta-icon">⏱</span>
+                {formatDuration(totalMinutes)}
+              </span>
+              <span className="course-detail__hero-meta-item">
+                <span className="course-detail__hero-meta-icon">👥</span>
+                {course.studentsCount ?? 0}+ {t('course.students')}
+              </span>
+              {course.level && (
+                <span className="course-detail__level course-detail__level--hero">
+                  {t(`catalog.${course.level}`) || course.level}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container">
         <div className="course-detail__layout">
           <main className="course-detail__main">
-            <div className="course-detail__header">
-              <div className="course-detail__image">
-                <img
-                  src={getCourseImage()}
-                  alt={course.title}
-                  loading="lazy"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    if (e.target.nextElementSibling) e.target.nextElementSibling.style.display = 'flex';
-                  }}
-                />
-                <div className="course-detail__placeholder" style={{ display: 'none' }}>📚</div>
-              </div>
-              <div className="course-detail__info">
-                <div className="course-detail__info-row">
-                  <span className="course-detail__category">{course.category}</span>
-                  {isAuthenticated && (
-                    <button
-                      type="button"
-                      className={`course-detail__favorite-btn ${isFavorite ? 'course-detail__favorite-btn--active' : ''}`}
-                      onClick={handleToggleFavorite}
-                      disabled={favoriteLoading}
-                      aria-label={isFavorite ? t('favorite.removeFromFavorites') : t('favorite.addToFavorites')}
-                      title={isFavorite ? t('favorite.removeFromFavorites') : t('favorite.addToFavorites')}
-                    >
-                      {isFavorite ? '❤️' : '🤍'}
-                    </button>
-                  )}
-                </div>
-                <h1 className="course-detail__title">{course.title}</h1>
-                <p className="course-detail__author">
-                  {t('course.author')}: {course.author}
-                </p>
-                <div className="course-detail__meta">
-                  {course.level && (
-                    <span className="course-detail__level">{t(`catalog.${course.level}`) || course.level}</span>
-                  )}
-                  <span>⭐ {course.rating ?? '—'}</span>
-                  <span>({course.reviewsCount ?? 0} {t('course.reviews')})</span>
-                  <span>{course.studentsCount ?? 0}+ {t('course.students')}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="course-detail__sections">
-              <section className="course-detail__section">
-                <h2>{t('course.description')}</h2>
-                <p>{course.fullDescription || course.description}</p>
+            {course.whatYouWillLearn?.length > 0 && (
+              <section className="course-detail__section course-detail__section--learn">
+                <h2 className="course-detail__section-title">{t('course.whatYouWillLearn')}</h2>
+                <ul className="course-detail__list course-detail__list--check">
+                  {course.whatYouWillLearn.map((item, idx) => (
+                    <li key={idx}>{item}</li>
+                  ))}
+                </ul>
               </section>
+            )}
 
-              {course.whatYouWillLearn?.length > 0 && (
-                <section className="course-detail__section">
-                  <h2>{t('course.whatYouWillLearn')}</h2>
-                  <ul className="course-detail__list">
-                    {course.whatYouWillLearn.map((item, idx) => (
-                      <li key={idx}>{item}</li>
-                    ))}
-                  </ul>
-                </section>
-              )}
+            <section className="course-detail__section">
+              <h2 className="course-detail__section-title">{t('course.aboutCourse')}</h2>
+              <p>{course.fullDescription || course.description}</p>
+            </section>
 
               {course.requirements?.length > 0 && (
                 <section className="course-detail__section">
-                  <h2>{t('course.requirements')}</h2>
+                  <h2 className="course-detail__section-title">{t('course.requirements')}</h2>
                   <ul className="course-detail__list">
                     {course.requirements.map((item, idx) => (
                       <li key={idx}>{item}</li>
@@ -296,8 +300,8 @@ const CourseDetail = () => {
                 </section>
               )}
 
-              <section className="course-detail__section">
-                <h2>{t('course.courseContent')}</h2>
+              <section id="course-content" className="course-detail__section">
+                <h2 className="course-detail__section-title">{t('course.courseContent')}</h2>
                 <div className="course-detail__lessons">
                   {course.lessons?.map((lesson) => (
                     <Link
@@ -306,7 +310,7 @@ const CourseDetail = () => {
                       className={`course-detail__lesson ${!enrolled ? 'course-detail__lesson--locked' : ''}`}
                       onClick={(e) => !enrolled && e.preventDefault()}
                     >
-                      <span className="course-detail__lesson-number">{lesson.order}</span>
+                      <span className="course-detail__lesson-number">{(lesson.order ?? 0) + 1}</span>
                       <div className="course-detail__lesson-info">
                         <h3>{lesson.title}</h3>
                         <span>{formatDuration(lesson.duration)}</span>
@@ -318,7 +322,7 @@ const CourseDetail = () => {
               </section>
 
               <section className="course-detail__section course-detail__reviews">
-                <h2>{t('review.title')} ({reviews.length})</h2>
+                <h2 className="course-detail__section-title">{t('review.title')} ({reviews.length})</h2>
 
                 {isAuthenticated && !myReview && (
                   <div className="course-detail__review-form">
@@ -388,13 +392,12 @@ const CourseDetail = () => {
                   </div>
                 )}
               </section>
-            </div>
           </main>
 
           <aside className="course-detail__sidebar">
             <Card className="course-detail__purchase-card">
               <div className="course-detail__price">
-                {course.oldPrice && (
+                {course.oldPrice != null && course.oldPrice > 0 && (
                   <span className="course-detail__price-old">{formatPrice(course.oldPrice)}</span>
                 )}
                 <span className="course-detail__price-current">
@@ -403,41 +406,48 @@ const CourseDetail = () => {
               </div>
 
               {enrolled ? (
-                <Link to={`/course/${id}/lesson/${course.lessons?.[0]?.id}`}>
-                  <Button variant="primary" size="lg" fullWidth>
-                    {t('course.continueLearning')}
-                  </Button>
-                </Link>
+                <>
+                  <Link to={`/course/${id}/lesson/${course.lessons?.[0]?.id}`}>
+                    <Button variant="primary" size="lg" fullWidth className="course-detail__btn-primary">
+                      {t('course.continueLearning')}
+                    </Button>
+                  </Link>
+                  <p className="course-detail__sidebar-note">{t('course.learnNow')}</p>
+                </>
               ) : (
                 <>
                   <Button
                     variant="primary"
                     size="lg"
                     fullWidth
+                    className="course-detail__btn-primary"
                     onClick={handleEnroll}
                     disabled={enrollLoading || !isAuthenticated}
                   >
-                    {enrollLoading ? t('common.loading') : isAuthenticated ? t('course.startLearning') : t('nav.signIn')}
+                    {enrollLoading ? t('common.loading') : isAuthenticated ? t('course.buyOrEnroll') : t('nav.signIn')}
                   </Button>
                   <Button
                     variant="outline"
                     size="lg"
                     fullWidth
+                    className="course-detail__btn-secondary"
                     onClick={() => addToCart(course)}
                     disabled={isInCart(course.id)}
                   >
-                    {isInCart(course.id) ? t('course.inCart') : t('course.addToCart')}
+                    {isInCart(course.id) ? t('course.inCart') : t('course.wantToTake')}
                   </Button>
+                  <p className="course-detail__sidebar-note">{t('course.accessAfterEnroll')}</p>
                 </>
               )}
 
               <div className="course-detail__includes">
-                <h3>{t('course.includes')}:</h3>
-                <ul>
-                  <li>📚 {course.lessons?.length || 0} {t('course.lessons')}</li>
-                  <li>⏱️ {formatDuration(course.duration)}</li>
-                  <li>✅ {Math.floor((course.lessons?.length || 0) * 1.5)} {t('course.tests')}</li>
+                <h3>{t('course.inProgram')}</h3>
+                <ul className="course-detail__includes-list">
+                  <li><span className="course-detail__includes-icon">📚</span> {totalLessons} {t('course.lessons')}</li>
+                  <li><span className="course-detail__includes-icon">⏱</span> {formatDuration(totalMinutes)}</li>
+                  <li><span className="course-detail__includes-icon">✅</span> {Math.max(0, Math.floor(totalLessons * 1.5))} {t('course.tests')}</li>
                 </ul>
+                <a href="#course-content" className="course-detail__content-link">{t('course.contentsLink')}</a>
               </div>
             </Card>
           </aside>

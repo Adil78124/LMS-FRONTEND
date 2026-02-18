@@ -6,6 +6,7 @@ import { isTeacherRole } from '../../utils/roles';
 import { courseService } from '../../services/courseService';
 import { categoryService } from '../../services/categoryService';
 import { favoriteService } from '../../services/favoriteService';
+import { enrollmentService } from '../../services/enrollmentService';
 import CourseCard from '../../components/CourseCard/CourseCard';
 import CategoryIcon from '../../components/CategoryIcon/CategoryIcon';
 import Button from '../../components/UI/Button/Button';
@@ -19,6 +20,7 @@ const Home = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [favoriteIds, setFavoriteIds] = useState(new Set());
+  const [myEnrollments, setMyEnrollments] = useState([]);
 
   if (!authLoading && isTeacherRole(user?.role)) {
     return <Navigate to="/teaching" replace />;
@@ -44,17 +46,18 @@ const Home = () => {
   useEffect(() => {
     if (!isAuthenticated) {
       setFavoriteIds(new Set());
+      setMyEnrollments([]);
       return;
     }
     let cancelled = false;
-    favoriteService
-      .getMyFavorites()
-      .then((list) => {
-        if (!cancelled && Array.isArray(list)) setFavoriteIds(new Set(list.map((c) => c.id)));
-      })
-      .catch(() => {
-        if (!cancelled) setFavoriteIds(new Set());
-      });
+    Promise.all([
+      favoriteService.getMyFavorites(),
+      enrollmentService.getMyEnrollments().catch(() => []),
+    ]).then(([favList, enrollList]) => {
+      if (cancelled) return;
+      setFavoriteIds(Array.isArray(favList) ? new Set(favList.map((c) => c.id)) : new Set());
+      setMyEnrollments(Array.isArray(enrollList) ? enrollList.slice(0, 6) : []);
+    });
     return () => { cancelled = true; };
   }, [isAuthenticated]);
 
@@ -82,6 +85,7 @@ const Home = () => {
   const newCourses = [...courses]
     .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
     .slice(0, 4);
+  const totalStudents = courses.reduce((acc, c) => acc + (c.studentsCount || 0), 0);
 
   if (loading) {
     return (
@@ -124,10 +128,47 @@ const Home = () => {
             />
           </div>
         </div>
+        <div className="home__hero-stats">
+          <div className="home__stat">
+            <span className="home__stat-value">{courses.length}</span>
+            <span className="home__stat-label">{t('home.statsCourses')}</span>
+          </div>
+          <div className="home__stat">
+            <span className="home__stat-value">{totalStudents}+</span>
+            <span className="home__stat-label">{t('home.statsStudents')}</span>
+          </div>
+          <div className="home__stat">
+            <span className="home__stat-value">{categories.length}</span>
+            <span className="home__stat-label">{t('home.statsCategories')}</span>
+          </div>
+        </div>
       </section>
 
+      {isAuthenticated && myEnrollments.length > 0 && (
+        <section className="home__section page-section page-section--alt">
+          <div className="container">
+            <div className="home__section-header">
+              <h2 className="home__section-title">{t('home.continueLearning')}</h2>
+              <Link to="/my-courses" className="home__section-link">{t('home.viewAll')} →</Link>
+            </div>
+            <div className="home__courses-grid">
+              {myEnrollments.slice(0, 3).map((item) => (
+                <CourseCard
+                  key={item.id}
+                  course={item}
+                  enrollmentProgress={item.enrollment?.progressPercent}
+                  isEnrolled
+                  isFavorite={favoriteIds.has(item.id)}
+                  onToggleFavorite={handleToggleFavorite}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {popularCourses.length > 0 && (
-        <section className="home__section">
+        <section className="home__section page-section">
           <div className="container">
             <div className="home__section-header">
               <h2 className="home__section-title">{t('home.popularCourses')}</h2>
@@ -150,7 +191,7 @@ const Home = () => {
       )}
 
       {newCourses.length > 0 && (
-        <section className="home__section">
+        <section className="home__section page-section page-section--alt">
           <div className="container">
             <div className="home__section-header">
               <h2 className="home__section-title">{t('home.newCourses')}</h2>
@@ -173,7 +214,7 @@ const Home = () => {
       )}
 
       {categories.length > 0 && (
-        <section className="home__section home__section--categories">
+        <section className="home__section home__section--categories page-section">
           <div className="container">
             <div className="home__section-header">
               <h2 className="home__section-title">{t('home.categories')}</h2>

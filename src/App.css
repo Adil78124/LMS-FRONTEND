@@ -2,12 +2,13 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--color-background);
+  background: transparent;
   color: var(--color-text);
-  transition: background-color var(--transition-normal), color var(--transition-normal);
+  transition: color var(--transition-normal);
 }
 
 .app__main {
   flex: 1;
   width: 100%;
+  min-height: 0;
 }
