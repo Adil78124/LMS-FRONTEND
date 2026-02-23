@@ -431,6 +431,33 @@
   min-width: 120px;
 }
 
+.course-lessons__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.course-lessons__footer-link {
+  font-size: 0.9375rem;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.course-lessons__footer-link:hover {
+  text-decoration: underline;
+}
+
+.course-lessons__footer-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
 @media (max-width: 768px) {
   .course-lessons__layout {
     grid-template-columns: 1fr;

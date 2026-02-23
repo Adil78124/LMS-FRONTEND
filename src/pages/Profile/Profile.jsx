@@ -8,6 +8,7 @@ import { API_BASE_URL } from '../../config/api';
 import Card from '../../components/UI/Card/Card';
 import Button from '../../components/UI/Button/Button';
 import Loader from '../../components/UI/Loader/Loader';
+import { IconCheckCircle } from '../../components/UI/Icons/Icons';
 import './Profile.css';
 
 const Profile = () => {
@@ -221,7 +222,7 @@ const Profile = () => {
                             <div className="profile__course-header">
                               <h3>{course.title}</h3>
                               <span className="profile__course-completed">
-                                ✅ {t('profile.completed')}
+                                <IconCheckCircle size={18} /> {t('profile.completed')}
                               </span>
                             </div>
                           </Card>

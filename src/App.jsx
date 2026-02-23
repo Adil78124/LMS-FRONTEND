@@ -15,10 +15,12 @@ import CourseDetail from './pages/CourseDetail/CourseDetail';
 import Lesson from './pages/Lesson/Lesson';
 import Profile from './pages/Profile/Profile';
 import Cart from './pages/Cart/Cart';
+import TeachingLayout from './components/TeachingLayout/TeachingLayout';
 import Teaching from './pages/Teaching/Teaching';
 import Analytics from './pages/Teaching/Analytics';
 import CreateCourse from './pages/Teaching/CreateCourse';
 import CourseLessons from './pages/Teaching/CourseLessons';
+import CourseInfo from './pages/Teaching/CourseInfo';
 import Favorites from './pages/Favorites/Favorites';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
@@ -39,10 +41,13 @@ const AppRoutes = () => {
             <Route path="/cart" element={<StudentOrGuestOnly><Cart /></StudentOrGuestOnly>} />
             <Route path="/my-courses" element={<StudentOrGuestOnly><Catalog /></StudentOrGuestOnly>} />
             <Route path="/favorites" element={<StudentOrGuestOnly><Favorites /></StudentOrGuestOnly>} />
-            <Route path="/teaching" element={<TeacherOnly><Teaching /></TeacherOnly>} />
-            <Route path="/teaching/course/new" element={<TeacherOnly><CreateCourse /></TeacherOnly>} />
-            <Route path="/teaching/course/:id/lessons" element={<TeacherOnly><CourseLessons /></TeacherOnly>} />
-            <Route path="/teaching/analytics" element={<TeacherOnly><Analytics /></TeacherOnly>} />
+            <Route path="/teaching" element={<TeacherOnly><TeachingLayout /></TeacherOnly>}>
+              <Route index element={<Teaching />} />
+              <Route path="course/new" element={<CreateCourse />} />
+              <Route path="course/:id/info" element={<CourseInfo />} />
+              <Route path="course/:id/lessons" element={<CourseLessons />} />
+              <Route path="analytics" element={<Analytics />} />
+            </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>

@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { isTeacherRole } from '../../utils/roles';
 import Button from '../../components/UI/Button/Button';
+import { IconEye, IconEyeOff } from '../../components/UI/Icons/Icons';
 import './Auth.css';
 
 const Login = () => {
@@ -95,7 +96,7 @@ const Login = () => {
                   onClick={() => setShowPassword(!showPassword)}
                   tabIndex={-1}
                 >
-                  {showPassword ? '👁️' : '👁️‍🗨️'}
+                  {showPassword ? <IconEyeOff size={20} /> : <IconEye size={20} />}
                 </button>
               </div>
             </div>

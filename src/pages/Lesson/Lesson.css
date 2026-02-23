@@ -55,7 +55,7 @@
   border-right: 1px solid var(--color-border);
   background: var(--color-surface);
   overflow-y: auto;
-  box-shadow: 2px 0 12px rgba(232, 93, 4, 0.06);
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.06);
 }
 @media (max-width: 900px) {
   .lesson__sidebar {
@@ -182,9 +182,11 @@
   color: var(--color-success);
 }
 .lesson__sidebar-step--done .lesson__sidebar-step-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-left: auto;
   color: var(--color-success);
-  font-weight: 600;
 }
 .lesson__sidebar-step-num {
   width: 22px;
@@ -373,7 +375,7 @@
   padding: var(--spacing-lg);
   text-align: center;
   border-radius: var(--radius-md);
-  background: linear-gradient(135deg, rgba(232, 93, 4, 0.08), rgba(59, 130, 246, 0.08));
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.04));
   border: 1px solid var(--color-border);
 }
 .lesson__test-result-title {

@@ -5,6 +5,8 @@ import { useCart } from '../../contexts/CartContext';
 import { useProgress } from '../../contexts/ProgressContext';
 import Button from '../UI/Button/Button';
 import Card from '../UI/Card/Card';
+import { IconBook } from '../UI/Icons/Icons';
+import RatingStars from '../UI/RatingStars/RatingStars';
 import './CourseCard.css';
 
 const CourseCard = ({ course, enrollmentProgress, isEnrolled, isFavorite = false, onToggleFavorite }) => {
@@ -121,7 +123,7 @@ const CourseCard = ({ course, enrollmentProgress, isEnrolled, isFavorite = false
           }}
         />
         <div className="course-card__placeholder" style={{ display: 'none' }}>
-          <span className="course-card__placeholder-icon">📚</span>
+          <span className="course-card__placeholder-icon" aria-hidden><IconBook size={64} /></span>
         </div>
         {showProgressBar && (
           <div className="course-card__progress-wrap">
@@ -145,8 +147,8 @@ const CourseCard = ({ course, enrollmentProgress, isEnrolled, isFavorite = false
 
         <div className="course-card__meta">
           <div className="course-card__rating">
-            <span className="course-card__stars">⭐</span>
-            <span>{course.rating}</span>
+            <RatingStars value={course.rating ?? 0} size={14} />
+            <span>{course.rating ?? 0}</span>
             <span className="course-card__reviews">({course.reviewsCount})</span>
           </div>
           <div className="course-card__students">{course.studentsCount}+ {t('course.students')}</div>

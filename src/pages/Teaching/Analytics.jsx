@@ -3,6 +3,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import { analyticsService } from '../../services/analyticsService';
 import Card from '../../components/UI/Card/Card';
 import Loader from '../../components/UI/Loader/Loader';
+import { IconPeople, IconCalendar, IconCalendarRange, IconStar, IconChart } from '../../components/UI/Icons/Icons';
 import './Analytics.css';
 
 const Analytics = () => {
@@ -75,22 +76,22 @@ const Analytics = () => {
 
         <div className="analytics__stats">
           <Card className="analytics__stat-card analytics__stat-card--primary">
-            <div className="analytics__stat-icon">👥</div>
+            <div className="analytics__stat-icon" aria-hidden><IconPeople size={28} /></div>
             <div className="analytics__stat-value">{data.totalStudents?.toLocaleString() ?? 0}</div>
             <div className="analytics__stat-label">{t('teaching.analyticsTotalStudents')}</div>
           </Card>
           <Card className="analytics__stat-card">
-            <div className="analytics__stat-icon">📅</div>
+            <div className="analytics__stat-icon" aria-hidden><IconCalendar size={28} /></div>
             <div className="analytics__stat-value">{data.newEnrollmentsWeek ?? 0}</div>
             <div className="analytics__stat-label">{t('teaching.analyticsNewWeek')}</div>
           </Card>
           <Card className="analytics__stat-card">
-            <div className="analytics__stat-icon">📆</div>
+            <div className="analytics__stat-icon" aria-hidden><IconCalendarRange size={28} /></div>
             <div className="analytics__stat-value">{data.newEnrollmentsMonth ?? 0}</div>
             <div className="analytics__stat-label">{t('teaching.analyticsNewMonth')}</div>
           </Card>
           <Card className="analytics__stat-card">
-            <div className="analytics__stat-icon">⭐</div>
+            <div className="analytics__stat-icon" aria-hidden><IconStar size={28} /></div>
             <div className="analytics__stat-value">{data.averageRating ?? 0}</div>
             <div className="analytics__stat-label">{t('teaching.analyticsAvgRating')}</div>
           </Card>
@@ -138,7 +139,7 @@ const Analytics = () => {
                     <th>{t('teaching.courseTitle')}</th>
                     <th>{t('teaching.students')}</th>
                     <th>{t('course.reviews')}</th>
-                    <th>⭐ {t('teaching.analyticsAvgRating')}</th>
+                    <th><span className="analytics__th-icon" aria-hidden><IconStar size={14} /></span> {t('teaching.analyticsAvgRating')}</th>
                     <th>{t('teaching.analyticsRevenue')}</th>
                   </tr>
                 </thead>
@@ -161,7 +162,7 @@ const Analytics = () => {
         {(!data.coursesTable?.length && !data.enrollmentsByDay?.length) && (
           <Card className="analytics__empty">
             <div className="analytics__coming-soon">
-              <span className="analytics__icon">📊</span>
+              <span className="analytics__icon" aria-hidden><IconChart size={48} /></span>
               <h2 className="analytics__coming-title">{t('teaching.analyticsComingSoon')}</h2>
               <p className="analytics__coming-text">
                 Создайте курсы и привлеките студентов — здесь появится детальная статистика.

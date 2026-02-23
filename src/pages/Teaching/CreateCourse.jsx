@@ -8,6 +8,7 @@ import Stepper from '../../components/Stepper/Stepper';
 import Card from '../../components/UI/Card/Card';
 import Button from '../../components/UI/Button/Button';
 import Loader from '../../components/UI/Loader/Loader';
+import { IconClose } from '../../components/UI/Icons/Icons';
 import './CreateCourse.css';
 
 const STEP_1 = 1;
@@ -155,8 +156,10 @@ const CreateCourse = () => {
                 onChange={(e) => handleChange('title', e.target.value)}
                 placeholder="Название курса"
                 required
-                maxLength={500}
+                maxLength={64}
               />
+              <span className="create-course__counter">{form.title.length}/64</span>
+              <p className="create-course__hint create-course__hint--inline">{t('teaching.maxSymbols')}</p>
             </div>
 
             <div className="create-course__row">
@@ -186,7 +189,7 @@ const CreateCourse = () => {
                       onClick={() => handleChange('image', '')}
                       aria-label="Удалить обложку"
                     >
-                      ×
+                      <IconClose size={18} />
                     </button>
                   </div>
                 ) : (
@@ -297,7 +300,7 @@ const CreateCourse = () => {
                 <option value="archived">{t('teaching.archived')}</option>
               </select>
               <p className="create-course__hint">
-                Черновик — курс не виден в каталоге. Опубликованный — виден после сохранения.
+                {t('teaching.hintDraftFree')}
               </p>
             </div>
 

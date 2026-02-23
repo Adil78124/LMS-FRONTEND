@@ -103,8 +103,20 @@ const Home = () => {
   return (
     <div className="home">
       <section className="home__hero">
-        <div className="container">
+        <div className="home__hero-video-wrap" aria-hidden="true">
+          <video
+            className="home__hero-video"
+            src="/video/lms-video-hero.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+        </div>
+        <div className="home__hero-bg" aria-hidden="true" />
+        <div className="container home__hero-container">
           <div className="home__hero-content">
+            <span className="home__hero-badge">{t('home.badge') || 'Онлайн-обучение'}</span>
             <h1 className="home__hero-title">{t('home.title')}</h1>
             <p className="home__hero-subtitle">{t('home.subtitle')}</p>
             <div className="home__hero-actions">
@@ -120,12 +132,14 @@ const Home = () => {
               </Link>
             </div>
           </div>
-          <div className="home__hero-image">
-            <img
-              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=85"
-              alt=""
-              className="home__hero-img"
-            />
+          <div className="home__hero-image-wrap">
+            <div className="home__hero-image">
+              <img
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=85"
+                alt=""
+                className="home__hero-img"
+              />
+            </div>
           </div>
         </div>
         <div className="home__hero-stats">

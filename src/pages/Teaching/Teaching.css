@@ -263,9 +263,12 @@ textarea.teaching__form-input {
 }
 
 .teaching__empty-icon {
-  font-size: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: var(--spacing-lg);
-  opacity: 0.5;
+  color: var(--color-text-muted);
+  opacity: 0.6;
 }
 
 .teaching__empty-title {

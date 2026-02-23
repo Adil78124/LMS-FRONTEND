@@ -240,6 +240,9 @@
 }
 
 .profile__course-completed {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
   font-size: 0.9375rem;
   font-weight: 500;
   color: var(--color-success);

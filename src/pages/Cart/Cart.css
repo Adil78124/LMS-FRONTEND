@@ -20,8 +20,11 @@
 }
 
 .cart__empty-icon {
-  font-size: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: var(--spacing-lg);
+  color: var(--color-text-muted);
   opacity: 0.5;
 }
 

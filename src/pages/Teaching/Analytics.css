@@ -66,8 +66,11 @@
 }
 
 .analytics__stat-icon {
-  font-size: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: var(--spacing-xs);
+  color: var(--color-primary);
   opacity: 0.9;
 }
 
@@ -219,11 +222,21 @@
   padding: var(--spacing-xl);
 }
 
+.analytics__th-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: var(--spacing-xs);
+  vertical-align: middle;
+}
+
 .analytics__icon {
-  font-size: 4rem;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: var(--spacing-md);
-  opacity: 0.8;
+  color: var(--color-text-muted);
+  opacity: 0.7;
 }
 
 .analytics__coming-title {

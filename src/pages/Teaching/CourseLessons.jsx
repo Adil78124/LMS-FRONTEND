@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { courseService } from '../../services/courseService';
 import { lessonService } from '../../services/lessonService';
@@ -8,6 +8,7 @@ import Stepper from '../../components/Stepper/Stepper';
 import Card from '../../components/UI/Card/Card';
 import Button from '../../components/UI/Button/Button';
 import Loader from '../../components/UI/Loader/Loader';
+import { IconClose } from '../../components/UI/Icons/Icons';
 import './CourseLessons.css';
 
 const ASSIGNMENT_TYPES = [
@@ -500,7 +501,7 @@ const CourseLessons = () => {
                         title={t('teaching.deleteLesson')}
                         aria-label={t('teaching.deleteLesson')}
                       >
-                        ✕
+                        <IconClose size={14} />
                       </button>
                     </li>
                   ))}
@@ -606,7 +607,7 @@ const CourseLessons = () => {
                                 onClick={() => handleDeleteModule(mod.id)}
                                 title={t('common.delete')}
                               >
-                                ✕
+                                <IconClose size={14} />
                               </button>
                             </div>
                             <Button
@@ -663,7 +664,7 @@ const CourseLessons = () => {
                                     onClick={() => handleDeleteUnderModule(um.id)}
                                     title={t('common.delete')}
                                   >
-                                    ✕
+                                    <IconClose size={14} />
                                   </button>
                                   <div className="course-lessons__under-material">
                                     {(() => {
@@ -751,7 +752,7 @@ const CourseLessons = () => {
                                                         onClick={() => deleteTestQuestion(um.id, q.id)}
                                                         title={t('common.delete')}
                                                       >
-                                                        ✕
+                                                        <IconClose size={14} />
                                                       </button>
                                                     </div>
                                                     <div className="course-lessons__test-answers">
@@ -792,7 +793,7 @@ const CourseLessons = () => {
                                                             onClick={() => deleteTestAnswer(um.id, q.id, a.id)}
                                                             title={t('common.delete')}
                                                           >
-                                                            ✕
+                                                            <IconClose size={14} />
                                                           </button>
                                                         </div>
                                                       ))}
@@ -858,6 +859,20 @@ const CourseLessons = () => {
               )}
             </Card>
           </main>
+        </div>
+
+        <div className="course-lessons__footer">
+          <Link to={`/teaching/course/${course.id}/info`} className="course-lessons__footer-link">
+            {t('teaching.aboutCourse')}
+          </Link>
+          <div className="course-lessons__footer-actions">
+            <Link to={`/course/${course.id}`} target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" size="sm">{t('teaching.viewCourse')}</Button>
+            </Link>
+            <Link to="/teaching">
+              <Button variant="ghost" size="sm">{t('teaching.returnToView')}</Button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

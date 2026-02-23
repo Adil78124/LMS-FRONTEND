@@ -13,7 +13,7 @@
 .course-card:hover {
   box-shadow: var(--shadow-hover);
   transform: translateY(-4px);
-  border-color: rgba(232, 93, 4, 0.25);
+  border-color: rgba(0, 0, 0, 0.15);
 }
 
 .course-card__image {
@@ -46,8 +46,8 @@
   color: #fff;
 }
 .course-card__badge--free {
-  background: var(--color-primary);
-  color: var(--color-on-primary);
+  background: linear-gradient(180deg, #334155 0%, #1e293b 100%);
+  color: #fff;
 }
 .course-card__favorite {
   position: absolute;
@@ -111,8 +111,11 @@
 }
 
 .course-card__placeholder-icon {
-  font-size: 64px;
-  opacity: 0.3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  opacity: 0.4;
 }
 
 .course-card__progress-wrap {
@@ -136,7 +139,7 @@
 
 .course-card__progress-bar {
   height: 100%;
-  background: var(--gradient-primary);
+  background: linear-gradient(90deg, #334155, #475569);
   transition: width var(--transition-normal);
 }
 

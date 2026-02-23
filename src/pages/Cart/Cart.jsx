@@ -7,6 +7,8 @@ import Card from '../../components/UI/Card/Card';
 import Button from '../../components/UI/Button/Button';
 import Modal from '../../components/UI/Modal/Modal';
 import CheckoutForm from '../../components/CheckoutForm/CheckoutForm';
+import { IconCart, IconBook, IconCheckCircle } from '../../components/UI/Icons/Icons';
+import RatingStars from '../../components/UI/RatingStars/RatingStars';
 import './Cart.css';
 
 const Cart = () => {
@@ -52,7 +54,7 @@ const Cart = () => {
         <div className="container">
           <h1 className="cart__title">{t('cart.title')}</h1>
           <div className="cart__empty">
-            <div className="cart__empty-icon">🛒</div>
+            <div className="cart__empty-icon" aria-hidden><IconCart size={48} /></div>
             <h2 className="cart__empty-title">{t('cart.empty')}</h2>
             <p className="cart__empty-text">{t('cart.emptyDescription')}</p>
             <Link to="/catalog">
@@ -95,13 +97,13 @@ const Cart = () => {
                             e.target.nextElementSibling.style.display = 'flex';
                           }}
                         />
-                        <div className="cart__item-placeholder" style={{ display: 'none' }}>📚</div>
+                        <div className="cart__item-placeholder" style={{ display: 'none' }} aria-hidden><IconBook size={48} /></div>
                       </div>
                       <div className="cart__item-info">
                         <h3 className="cart__item-title">{course.title}</h3>
                         <p className="cart__item-author">{t('course.author')}: {course.author}</p>
                         <div className="cart__item-meta">
-                          <span>⭐ {course.rating}</span>
+                          <span><RatingStars value={course.rating ?? 0} size={14} /> {course.rating ?? 0}</span>
                           <span>{course.studentsCount}+ {t('course.students')}</span>
                         </div>
                       </div>
@@ -184,7 +186,7 @@ const Cart = () => {
           title={t('checkout.successTitle')}
         >
           <div className="checkout-success">
-            <div className="checkout-success__icon">✅</div>
+            <div className="checkout-success__icon" aria-hidden><IconCheckCircle size={56} /></div>
             <h3 className="checkout-success__title">{t('checkout.successMessage')}</h3>
             <p className="checkout-success__text">
               {t('checkout.orderNumber')}: <strong>#{orderSuccess.id}</strong>

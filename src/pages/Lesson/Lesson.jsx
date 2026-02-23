@@ -9,6 +9,7 @@ import { API_BASE_URL } from '../../config/api';
 import Button from '../../components/UI/Button/Button';
 import Card from '../../components/UI/Card/Card';
 import Loader from '../../components/UI/Loader/Loader';
+import { IconCheck } from '../../components/UI/Icons/Icons';
 import './Lesson.css';
 
 /** Плоский список шагов урока (как в Stepik: модуль → подмодули по порядку) */
@@ -330,7 +331,7 @@ const Lesson = () => {
                       >
                         <span className="lesson__sidebar-step-num">{idx + 1}</span>
                         <span className="lesson__sidebar-step-title">{um.title}</span>
-                        {completed && <span className="lesson__sidebar-step-check">✓</span>}
+                        {completed && <span className="lesson__sidebar-step-check" aria-hidden><IconCheck size={16} /></span>}
                       </button>
                     </li>
                   );

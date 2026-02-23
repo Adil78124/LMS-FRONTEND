@@ -11,6 +11,7 @@ import CategoryIcon from '../../components/CategoryIcon/CategoryIcon';
 import Card from '../../components/UI/Card/Card';
 import Button from '../../components/UI/Button/Button';
 import Loader from '../../components/UI/Loader/Loader';
+import { IconSearch } from '../../components/UI/Icons/Icons';
 import './Catalog.css';
 
 const Catalog = () => {
@@ -363,7 +364,7 @@ const Catalog = () => {
                 </div>
               ) : (
                 <div className="catalog__empty">
-                  <div className="catalog__empty-icon">🔍</div>
+                  <div className="catalog__empty-icon" aria-hidden><IconSearch size={40} /></div>
                   <h3 className="catalog__empty-title">{t('catalog.noCourses')}</h3>
                   <p className="catalog__empty-text">
                     {isMyCourses && isAuthenticated

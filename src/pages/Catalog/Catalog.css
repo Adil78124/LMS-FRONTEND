@@ -111,7 +111,7 @@
   bottom: 0;
   width: 40px;
   height: 3px;
-  background: var(--gradient-primary);
+  background: linear-gradient(90deg, #334155, #1e293b);
   border-radius: var(--radius-full);
 }
 
@@ -145,7 +145,7 @@
 .catalog__search-input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(232, 93, 4, 0.2);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
 }
 
 .catalog__filter-options {
@@ -177,11 +177,11 @@
 }
 
 .catalog__filter-option--active {
-  background: var(--gradient-primary);
+  background: linear-gradient(180deg, #334155 0%, #1e293b 100%);
   border-color: transparent;
-  color: var(--color-on-primary);
+  color: #fff;
   font-weight: 600;
-  box-shadow: 0 4px 12px rgba(232, 93, 4, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .catalog__filter-option .category-icon {
@@ -229,8 +229,11 @@
 }
 
 .catalog__empty-icon {
-  font-size: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: var(--spacing-lg);
+  color: var(--color-text-muted);
   opacity: 0.5;
 }
 

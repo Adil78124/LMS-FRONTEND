@@ -10,6 +10,8 @@ import Card from '../../components/UI/Card/Card';
 import Button from '../../components/UI/Button/Button';
 import Loader from '../../components/UI/Loader/Loader';
 import Modal from '../../components/UI/Modal/Modal';
+import { IconBook } from '../../components/UI/Icons/Icons';
+import RatingStars from '../../components/UI/RatingStars/RatingStars';
 import './Teaching.css';
 
 const COURSE_FORM_INIT = {
@@ -395,7 +397,7 @@ const Teaching = () => {
                     <div className="teaching__course-info">
                       <h3 className="teaching__course-title">{course.title}</h3>
                       <p className="teaching__course-meta">
-                        {course.studentsCount} {t('teaching.students')} • {course.rating} ⭐ •{' '}
+                        {course.studentsCount} {t('teaching.students')} • <RatingStars value={course.rating ?? 0} size={12} /> {course.rating ?? 0} •{' '}
                         {(course.currentPrice ?? course.price ?? 0) > 0 ? `${course.currentPrice ?? course.price} ₸` : t('catalog.free')}
                       </p>
                     </div>
@@ -423,6 +425,9 @@ const Teaching = () => {
                   )}
 
                   <div className="teaching__course-actions">
+                    <Link to={`/teaching/course/${course.id}/info`}>
+                      <Button variant="outline" size="sm">{t('teaching.aboutCourse')}</Button>
+                    </Link>
                     <Link to={`/teaching/course/${course.id}/lessons`}>
                       <Button variant="outline" size="sm">{t('teaching.viewCourse')}</Button>
                     </Link>
@@ -448,7 +453,7 @@ const Teaching = () => {
             </div>
           ) : (
             <Card className="teaching__empty">
-              <div className="teaching__empty-icon">📚</div>
+              <div className="teaching__empty-icon" aria-hidden><IconBook size={48} /></div>
               <h3 className="teaching__empty-title">{t('teaching.noCourses')}</h3>
               <p className="teaching__empty-text">{t('teaching.createFirst')}</p>
               <Button variant="primary" size="lg" onClick={() => navigate('/teaching/course/new')}>

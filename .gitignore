@@ -11,6 +11,10 @@
 # production
 /build
 
+# video assets (too large for git)
+/public/video/*.mp4
+/public/video/*.webm
+
 # misc
 .DS_Store
 .env

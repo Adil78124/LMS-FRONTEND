@@ -30,7 +30,7 @@
   transition: background var(--transition-fast), color var(--transition-fast);
 }
 .course-detail__back:hover {
-  background: rgba(232, 93, 4, 0.1);
+  background: rgba(0, 0, 0, 0.06);
   text-decoration: none;
 }
 
@@ -122,7 +122,7 @@
 }
 .course-detail__level--hero {
   padding: var(--spacing-xs) var(--spacing-md);
-  background: rgba(232, 93, 4, 0.9);
+  background: rgba(26, 26, 26, 0.95);
   border-radius: var(--radius-full);
   font-weight: 600;
   color: #fff;
@@ -230,8 +230,8 @@
   word-break: break-word;
 }
 .course-detail__list li:hover {
-  border-color: rgba(232, 93, 4, 0.25);
-  box-shadow: 0 2px 8px rgba(232, 93, 4, 0.1);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 .course-detail__list li::before {
   content: '✓';
@@ -255,8 +255,8 @@
   color: #fff;
 }
 .course-detail__section--learn .course-detail__list li {
-  background: rgba(232, 93, 4, 0.06);
-  border-color: rgba(232, 93, 4, 0.15);
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.1);
 }
 
 /* Содержание курса — уроки */
@@ -279,7 +279,7 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 .course-detail__lesson:hover {
-  border-color: rgba(232, 93, 4, 0.35);
+  border-color: rgba(0, 0, 0, 0.2);
   background: var(--color-surface);
   box-shadow: var(--shadow-hover);
   transform: translateX(4px);
@@ -302,7 +302,7 @@
   border-radius: var(--radius-full);
   font-weight: 800;
   font-size: 1rem;
-  box-shadow: 0 4px 12px rgba(232, 93, 4, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 .course-detail__lesson-info {
   flex: 1;
@@ -341,8 +341,8 @@
   margin: 0 0 var(--spacing-md) 0;
 }
 .course-detail__review-form {
-  background: linear-gradient(135deg, rgba(232, 93, 4, 0.05) 0%, rgba(30, 64, 175, 0.06) 100%);
-  border: 1px solid rgba(232, 93, 4, 0.2);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.03) 0%, rgba(0, 0, 0, 0.04) 100%);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
   margin-bottom: var(--spacing-lg);
@@ -401,7 +401,7 @@
 .course-detail__review-comment textarea:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(232, 93, 4, 0.18);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
 }
 .course-detail__review-notice,
 .course-detail__review-empty {
@@ -440,8 +440,12 @@
   font-size: 1rem;
 }
 .course-detail__review-stars {
-  color: #f59e0b;
-  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  color: #eab308;
+}
+[data-theme="dark"] .course-detail__review-stars {
+  color: #facc15;
 }
 .course-detail__review-text {
   font-size: 1rem;
@@ -461,7 +465,7 @@
   border-radius: var(--radius-xl);
   border: 1px solid var(--color-border);
   background: var(--color-surface);
-  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(232, 93, 4, 0.06);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0, 0, 0, 0.06);
   position: relative;
   overflow: hidden;
 }
@@ -530,9 +534,21 @@
   gap: var(--spacing-md);
   padding: var(--spacing-xs) 0;
 }
+.course-detail__hero-meta-icon,
 .course-detail__includes-icon {
-  font-size: 1.125rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.course-detail__includes-icon {
   opacity: 0.9;
+}
+.course-detail__lesson-lock {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 .course-detail__content-link {
   display: inline-block;
@@ -554,22 +570,24 @@
   line-height: 1.4;
 }
 .course-detail__btn-primary.btn--primary {
-  background: var(--gradient-primary);
+  background: linear-gradient(180deg, #334155 0%, #1e293b 100%);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(232, 93, 4, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 .course-detail__btn-primary.btn--primary:hover:not(:disabled) {
-  box-shadow: 0 6px 20px rgba(232, 93, 4, 0.45);
+  background: linear-gradient(180deg, #475569 0%, #334155 100%);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   transform: translateY(-1px);
 }
 .course-detail__btn-secondary.btn--outline {
-  border: 2px solid var(--color-primary);
-  color: var(--color-primary);
+  border: 2px solid #334155;
+  color: #1e293b;
 }
 .course-detail__btn-secondary.btn--outline:hover:not(:disabled) {
-  background: var(--gradient-primary);
+  background: linear-gradient(180deg, #334155 0%, #1e293b 100%);
   color: #fff;
-  border-color: transparent;
+  border-color: #334155;
 }
 
 @media (max-width: 900px) {

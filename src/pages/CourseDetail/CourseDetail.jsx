@@ -11,6 +11,8 @@ import { favoriteService } from '../../services/favoriteService';
 import Button from '../../components/UI/Button/Button';
 import Card from '../../components/UI/Card/Card';
 import Loader from '../../components/UI/Loader/Loader';
+import { IconBook, IconClock, IconPeople, IconLock, IconCheckCircle } from '../../components/UI/Icons/Icons';
+import RatingStars from '../../components/UI/RatingStars/RatingStars';
 import './CourseDetail.css';
 
 const CourseDetail = () => {
@@ -237,7 +239,7 @@ onError={(e) => {
                   if (next) next.style.display = 'flex';
                 }}
           />
-          <div className="course-detail__hero-placeholder" style={{ display: 'none' }}>📚</div>
+          <div className="course-detail__hero-placeholder" style={{ display: 'none' }} aria-hidden><IconBook size={64} /></div>
           <div className="course-detail__hero-overlay" aria-hidden="true" />
         </div>
         <div className="container course-detail__hero-inner">
@@ -249,15 +251,15 @@ onError={(e) => {
             </p>
             <div className="course-detail__hero-meta">
               <span className="course-detail__hero-meta-item">
-                <span className="course-detail__hero-meta-icon">📚</span>
+                <span className="course-detail__hero-meta-icon" aria-hidden><IconBook size={18} /></span>
                 {totalLessons} {t('course.lessons')}
               </span>
               <span className="course-detail__hero-meta-item">
-                <span className="course-detail__hero-meta-icon">⏱</span>
+                <span className="course-detail__hero-meta-icon" aria-hidden><IconClock size={18} /></span>
                 {formatDuration(totalMinutes)}
               </span>
               <span className="course-detail__hero-meta-item">
-                <span className="course-detail__hero-meta-icon">👥</span>
+                <span className="course-detail__hero-meta-icon" aria-hidden><IconPeople size={18} /></span>
                 {course.studentsCount ?? 0}+ {t('course.students')}
               </span>
               {course.level && (
@@ -315,7 +317,7 @@ onError={(e) => {
                         <h3>{lesson.title}</h3>
                         <span>{formatDuration(lesson.duration)}</span>
                       </div>
-                      {!enrolled && <span className="course-detail__lesson-lock">🔒</span>}
+                      {!enrolled && <span className="course-detail__lesson-lock" aria-hidden><IconLock size={18} /></span>}
                     </Link>
                   ))}
                 </div>
@@ -330,16 +332,12 @@ onError={(e) => {
                     <div className="course-detail__review-rating">
                       <label>{t('review.yourRating')}</label>
                       <div className="course-detail__stars">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <button
-                            key={star}
-                            type="button"
-                            className={`course-detail__star ${reviewForm.rating >= star ? 'active' : ''}`}
-                            onClick={() => setReviewForm((p) => ({ ...p, rating: star }))}
-                          >
-                            ★
-                          </button>
-                        ))}
+                        <RatingStars
+                          value={reviewForm.rating}
+                          size={24}
+                          interactive
+                          onChange={(star) => setReviewForm((p) => ({ ...p, rating: star }))}
+                        />
                       </div>
                     </div>
                     <div className="course-detail__review-comment">
@@ -381,7 +379,7 @@ onError={(e) => {
                         <div className="course-detail__review-header">
                           <span className="course-detail__review-author">{r.author}</span>
                           <span className="course-detail__review-stars">
-                            {'★'.repeat(r.rating)}{'☆'.repeat(5 - r.rating)}
+                            <RatingStars value={r.rating} size={14} />
                           </span>
                         </div>
                         {r.comment && (
@@ -443,9 +441,9 @@ onError={(e) => {
               <div className="course-detail__includes">
                 <h3>{t('course.inProgram')}</h3>
                 <ul className="course-detail__includes-list">
-                  <li><span className="course-detail__includes-icon">📚</span> {totalLessons} {t('course.lessons')}</li>
-                  <li><span className="course-detail__includes-icon">⏱</span> {formatDuration(totalMinutes)}</li>
-                  <li><span className="course-detail__includes-icon">✅</span> {Math.max(0, Math.floor(totalLessons * 1.5))} {t('course.tests')}</li>
+                  <li><span className="course-detail__includes-icon" aria-hidden><IconBook size={18} /></span> {totalLessons} {t('course.lessons')}</li>
+                  <li><span className="course-detail__includes-icon" aria-hidden><IconClock size={18} /></span> {formatDuration(totalMinutes)}</li>
+                  <li><span className="course-detail__includes-icon" aria-hidden><IconCheckCircle size={18} /></span> {Math.max(0, Math.floor(totalLessons * 1.5))} {t('course.tests')}</li>
                 </ul>
                 <a href="#course-content" className="course-detail__content-link">{t('course.contentsLink')}</a>
               </div>

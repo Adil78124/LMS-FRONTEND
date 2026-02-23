@@ -1,0 +1,59 @@
+.rating-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--color-text-muted);
+}
+
+.rating-stars__star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  transition: color var(--transition-fast);
+}
+
+.rating-stars__star--filled {
+  color: #eab308;
+}
+
+[data-theme="dark"] .rating-stars__star--filled {
+  color: #facc15;
+}
+
+/* Интерактивный режим (форма отзыва) */
+.rating-stars--interactive {
+  gap: 4px;
+}
+
+.rating-stars--interactive .rating-stars__star {
+  padding: 4px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.rating-stars--interactive .rating-stars__star:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: #eab308;
+}
+
+[data-theme="dark"] .rating-stars--interactive .rating-stars__star:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #facc15;
+}
+
+.rating-stars--interactive .rating-stars__star--filled {
+  color: #eab308;
+}
+
+[data-theme="dark"] .rating-stars--interactive .rating-stars__star--filled {
+  color: #facc15;
+}
+
+.rating-stars--interactive .rating-stars__star:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

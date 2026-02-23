@@ -165,7 +165,7 @@
 .auth__input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(232, 93, 4, 0.2);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
 }
 
 .auth__input::placeholder {

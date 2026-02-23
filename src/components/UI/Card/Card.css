@@ -9,7 +9,7 @@
 
 .card--elevated {
   box-shadow: var(--shadow-card);
-  border-color: rgba(232, 93, 4, 0.1);
+  border-color: rgba(0, 0, 0, 0.06);
 }
 
 [data-theme="dark"] .card--elevated {
@@ -18,7 +18,7 @@
 
 .card--hoverable:hover {
   box-shadow: var(--shadow-hover);
-  border-color: rgba(232, 93, 4, 0.25);
+  border-color: rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
 }
 

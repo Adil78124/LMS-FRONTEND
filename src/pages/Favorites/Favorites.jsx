@@ -7,6 +7,7 @@ import CourseCard from '../../components/CourseCard/CourseCard';
 import Card from '../../components/UI/Card/Card';
 import Button from '../../components/UI/Button/Button';
 import Loader from '../../components/UI/Loader/Loader';
+import { IconClose } from '../../components/UI/Icons/Icons';
 import './Favorites.css';
 
 const Favorites = () => {
@@ -102,7 +103,7 @@ const Favorites = () => {
                   onClick={() => handleRemove(course.id)}
                   title={t('favorite.removeFromFavorites')}
                 >
-                  ✕ {t('favorite.removeFromFavorites')}
+                  <IconClose size={16} /> {t('favorite.removeFromFavorites')}
                 </button>
               </div>
             ))}

@@ -18,7 +18,7 @@
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(232, 93, 4, 0.06);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0, 0, 0, 0.06);
   max-width: 600px;
   width: 100%;
   max-height: 90vh;

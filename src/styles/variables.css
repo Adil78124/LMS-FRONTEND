@@ -1,22 +1,22 @@
-/* Палитра ABAI IT VALLEY: оранжевый + глубокий синий */
+/* Палитра: чёрный и нейтральные серые */
 
 :root,
 [data-theme="light"] {
-  /* Основные цвета — оранжевый (как в логотипе) */
-  --color-primary: #E85D04;
-  --color-primary-hover: #C2410C;
-  --color-primary-active: #9a3412;
+  /* Основные цвета — чёрный */
+  --color-primary: #1a1a1a;
+  --color-primary-hover: #333333;
+  --color-primary-active: #000000;
   --color-on-primary: #FFFFFF;
-  --color-secondary: #fff7ed;
-  --color-accent: #1e40af;
+  --color-secondary: #f1f5f9;
+  --color-accent: #334155;
 
   /* Фоны */
   --color-background: #fafafa;
   --color-surface: #FFFFFF;
   --color-surface-elevated: #f8fafc;
-  --color-overlay: rgba(232, 93, 4, 0.08);
-  --color-hero-bg: #1e3a5f;
-  --stepik-box: #fff7ed;
+  --color-overlay: rgba(0, 0, 0, 0.06);
+  --color-hero-bg: #1e293b;
+  --stepik-box: #f1f5f9;
   --content-max-width: 720px;
   --card-max-width: 380px;
 
@@ -37,29 +37,29 @@
   --color-error: #dc2626;
   --color-info: #2563eb;
 
-  /* Тени — с оранжевым оттенком */
-  --shadow-sm: 0 2px 8px rgba(232, 93, 4, 0.06);
-  --shadow-md: 0 8px 24px rgba(232, 93, 4, 0.1);
-  --shadow-lg: 0 16px 48px rgba(232, 93, 4, 0.12);
-  --shadow-hover: 0 12px 32px rgba(232, 93, 4, 0.2);
+  /* Тени — нейтральные */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.12);
+  --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.15);
   --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.06);
-  --shadow-glow: 0 0 40px rgba(232, 93, 4, 0.2);
+  --shadow-glow: 0 0 40px rgba(0, 0, 0, 0.12);
 
   /* Стекло (glass) */
   --glass-bg: rgba(255, 255, 255, 0.72);
   --glass-border: rgba(255, 255, 255, 0.5);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 
-  /* Градиенты — оранжевый + синий как в логотипе */
-  --gradient-primary: linear-gradient(135deg, #E85D04 0%, #ea580c 50%, #f97316 100%);
-  --gradient-primary-hover: linear-gradient(135deg, #C2410C 0%, #E85D04 100%);
-  --gradient-background: linear-gradient(180deg, #fafafa 0%, #fff7ed 30%, #eff6ff 100%);
-  --gradient-hero: linear-gradient(135deg, #1e3a5f 0%, #1e40af 50%, #1e3a5f 100%);
-  --gradient-mesh: radial-gradient(at 40% 20%, rgba(232, 93, 4, 0.12) 0%, transparent 50%),
-    radial-gradient(at 80% 80%, rgba(30, 64, 175, 0.1) 0%, transparent 50%),
-    radial-gradient(at 0% 50%, rgba(30, 64, 175, 0.06) 0%, transparent 45%);
-  --gradient-text: linear-gradient(135deg, #E85D04 0%, #ea580c 100%);
-  --gradient-border: linear-gradient(135deg, rgba(232, 93, 4, 0.5), rgba(30, 64, 175, 0.3));
+  /* Градиенты — тёмные */
+  --gradient-primary: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+  --gradient-primary-hover: linear-gradient(135deg, #475569 0%, #334155 100%);
+  --gradient-background: linear-gradient(180deg, #fafafa 0%, #f1f5f9 30%, #e2e8f0 100%);
+  --gradient-hero: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%);
+  --gradient-mesh: radial-gradient(at 40% 20%, rgba(0, 0, 0, 0.04) 0%, transparent 50%),
+    radial-gradient(at 80% 80%, rgba(0, 0, 0, 0.03) 0%, transparent 50%),
+    radial-gradient(at 0% 50%, rgba(0, 0, 0, 0.02) 0%, transparent 45%);
+  --gradient-text: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+  --gradient-border: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.15));
 
   /* Spacing */
   --spacing-xs: 4px;
@@ -85,19 +85,19 @@
 }
 
 [data-theme="dark"] {
-  /* Тёмная тема — оранжевый + синий */
-  --color-primary: #f97316;
-  --color-primary-hover: #ea580c;
-  --color-primary-active: #c2410c;
-  --color-on-primary: #FFFFFF;
+  /* Тёмная тема — чёрный и серый */
+  --color-primary: #f1f5f9;
+  --color-primary-hover: #e2e8f0;
+  --color-primary-active: #cbd5e1;
+  --color-on-primary: #1a1a1a;
   --color-secondary: #1e293b;
-  --color-accent: #3b82f6;
+  --color-accent: #64748b;
 
   /* Фоны */
   --color-background: #0f172a;
   --color-surface: #1e293b;
   --color-surface-elevated: #334155;
-  --color-overlay: rgba(249, 115, 22, 0.12);
+  --color-overlay: rgba(255, 255, 255, 0.06);
   --color-hero-bg: #0f172a;
   --stepik-box: #1e293b;
 
@@ -122,24 +122,24 @@
   --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.35);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
-  --shadow-hover: 0 12px 32px rgba(249, 115, 22, 0.25);
-  --shadow-glow: 0 0 40px rgba(249, 115, 22, 0.15);
+  --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 40px rgba(0, 0, 0, 0.2);
   --shadow-active: 0 2px 8px rgba(0, 0, 0, 0.5);
 
   /* Стекло */
   --glass-bg: rgba(30, 41, 59, 0.7);
-  --glass-border: rgba(249, 115, 22, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 
   /* Градиенты */
-  --gradient-primary: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
-  --gradient-primary-hover: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+  --gradient-primary: linear-gradient(135deg, #475569 0%, #334155 100%);
+  --gradient-primary-hover: linear-gradient(135deg, #64748b 0%, #475569 100%);
   --gradient-background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-  --gradient-hero: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e293b 100%);
-  --gradient-mesh: radial-gradient(at 40% 20%, rgba(249, 115, 22, 0.12) 0%, transparent 50%),
-    radial-gradient(at 80% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
-  --gradient-text: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
-  --gradient-border: linear-gradient(135deg, rgba(249, 115, 22, 0.4), rgba(59, 130, 246, 0.2));
+  --gradient-hero: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  --gradient-mesh: radial-gradient(at 40% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(at 80% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+  --gradient-text: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
+  --gradient-border: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.1));
 }
 
 /* Breakpoints */

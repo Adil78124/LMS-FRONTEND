@@ -1,4 +1,5 @@
 import React from 'react';
+import { IconCheck } from '../UI/Icons/Icons';
 import './Stepper.css';
 
 const Stepper = ({ steps, currentStep }) => {
@@ -15,7 +16,7 @@ const Stepper = ({ steps, currentStep }) => {
               className={`stepper__item ${isActive ? 'stepper__item--active' : ''} ${isCompleted ? 'stepper__item--completed' : ''}`}
             >
               <span className="stepper__number" aria-current={isActive ? 'step' : undefined}>
-                {isCompleted ? '✓' : step}
+                {isCompleted ? <IconCheck size={14} /> : step}
               </span>
               <span className="stepper__label">{label}</span>
               {index < steps.length - 1 && <span className="stepper__line" />}
