@@ -106,7 +106,7 @@ const Home = () => {
         <div className="home__hero-video-wrap" aria-hidden="true">
           <video
             className="home__hero-video"
-            src="/video/lms-video-hero.mp4"
+            src={process.env.REACT_APP_HERO_VIDEO_URL || '/video/lms-video-hero.mp4'}
             autoPlay
             muted
             loop
