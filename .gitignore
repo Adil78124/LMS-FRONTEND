@@ -11,9 +11,9 @@
 # production
 /build
 
-# video assets (too large for git)
-/public/video/*.mp4
-/public/video/*.webm
+# video assets (optional: remove these lines to commit hero video and deploy to Netlify)
+# /public/video/*.mp4
+# /public/video/*.webm
 
 # misc
 .DS_Store
